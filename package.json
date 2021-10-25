@@ -27,7 +27,11 @@
     "@capacitor/haptics": "1.0.3",
     "@capacitor/keyboard": "1.0.3",
     "@capacitor/status-bar": "1.0.3",
+    "@ionic-native/camera": "^5.36.0",
     "@ionic-native/core": "^5.36.0",
+    "@ionic-native/device": "^5.36.0",
+    "@ionic-native/facebook": "^5.36.0",
+    "@ionic-native/geolocation": "^5.36.0",
     "@ionic-native/qr-scanner": "^5.36.0",
     "@ionic-native/splash-screen": "^5.36.0",
     "@ionic-native/sqlite": "^5.36.0",
@@ -54,12 +58,16 @@
     "@angular/language-service": "~12.0.1",
     "@capacitor/cli": "3.2.2",
     "@ionic/angular-toolkit": "^4.0.0",
+    "@ionic/app-scripts": "^3.2.4",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "4.16.1",
     "@typescript-eslint/parser": "4.16.1",
+    "cordova-plugin-camera": "^5.0.3",
     "cordova-plugin-device": "^2.0.2",
+    "cordova-plugin-facebook-connect": "^3.2.0",
+    "cordova-plugin-geolocation": "^4.1.0",
     "cordova-plugin-ionic-keyboard": "^2.2.0",
     "cordova-plugin-ionic-webview": "^4.2.1",
     "cordova-plugin-qrscanner": "^3.0.1",
@@ -95,7 +103,25 @@
       },
       "cordova-plugin-ionic-keyboard": {},
       "cordova-plugin-qrscanner": {},
-      "cordova-sqlite-storage": {}
+      "cordova-sqlite-storage": {},
+      "cordova-plugin-camera": {
+        "ANDROID_SUPPORT_V4_VERSION": "27.+"
+      },
+      "cordova-plugin-geolocation": {
+        "GPS_REQUIRED": "true"
+      },
+      "cordova-plugin-facebook-connect": {
+        "APP_ID": "123",
+        "APP_NAME": "myApp",
+        "FACEBOOK_URL_SCHEME_SUFFIX": " ",
+        "OTHER_APP_SCHEMES": " ",
+        "FACEBOOK_AUTO_LOG_APP_EVENTS": "true",
+        "FACEBOOK_HYBRID_APP_EVENTS": "false",
+        "FACEBOOK_ADVERTISER_ID_COLLECTION": "true",
+        "FACEBOOK_ANDROID_SDK_VERSION": "11.3.0",
+        "FACEBOOK_IOS_SDK_VERSION": "11.1.0",
+        "FACEBOOK_BROWSER_SDK_VERSION": "v11.0"
+      }
     },
     "platforms": [
       "android",

@@ -135,4 +135,13 @@ export class DatosBasicosComponent implements OnInit, AfterViewInit {
       Object.defineProperty(this.post, key, { value: '' });
     }
   }
+  public async presentAlert(titulo: string, mensaje: string) {
+    const alert = await this.alertController.create({
+      header: titulo,
+      message: mensaje,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
 }
