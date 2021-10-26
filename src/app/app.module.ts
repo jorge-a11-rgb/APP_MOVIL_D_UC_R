@@ -30,6 +30,7 @@ import { Storage } from '@ionic/storage';
     StatusBar,
     SplashScreen,
     Storage,
+    DBTaskService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
@@ -37,7 +38,7 @@ import { Storage } from '@ionic/storage';
 export class AppModule {
   private db: SQLiteObject;
 
-  constructor(private platform: Platform) {
+  constructor(private platform: Platform, private dbTaskService: DBTaskService) {
 
     console.log('Verificar si la plataforma ya está lista para funcionar.');
     this.platform.ready().then(() => {
@@ -53,21 +54,22 @@ export class AppModule {
 
           console.log('Asignar la BD a una propiedad de la clase.');
           this.db = db;
+          this.dbTaskService.setDatabase(db);
 
           console.log('Crear una nueva tabla, pero siempre y cuando no haya sido creada antes.');
-          db.executeSql('CREATE TABLE IF NOT EXISTS usuarios(nombre_usuario VARCHAR(50))', [])
+          this.db.executeSql('CREATE TABLE IF NOT EXISTS usuarios(nombre_usuario VARCHAR(50))', [])
 
             .then(() => {
               console.log('La tabla fue creada.');
 
               console.log('Insertar un nuevo registro a la tabla.');
-              db.executeSql('INSERT INTO usuarios VALUES(\'Cristián Gómez Vega\')', [])
+              this.db.executeSql('INSERT INTO usuarios VALUES(\'Cristián Gómez Vega\')', [])
 
               .then(() => {
                 console.log('El registro nuevo fue insertado en la tabla.');
 
                 console.log('Seleccionar todos los registros de la tabla.');
-                db.executeSql('SELECT * FROM usuarios', [])
+                this.db.executeSql('SELECT * FROM usuarios', [])
 
                 .then((data) => {
                   console.log('La instrucción select fue ejecutada con éxito');

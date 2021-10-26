@@ -5,74 +5,77 @@
 </ion-header>
 
 <ion-content>
-
   <ion-title class="ion-padding-top ion-text-center">
     <ion-label>
-      <h1>
-        Bienvenido a clases
-      </h1>
+      <h1>Bienvenido a clases</h1>
       <h2>Ingrese sus credenciales</h2>
       <p>Su usuario y contraseña</p>
     </ion-label>
   </ion-title>
 
   <div class="ion-padding-vertical">
-
     <ion-card class="ion-text-center ion-padding-vertical">
-
       <ion-card-title class="ion-text-center">
         <ion-label>
           <h2>Para acreditar su asistencia debe iniciar sesión</h2>
         </ion-label>
       </ion-card-title>
       <div>
-      <img src='assets/icon/DuocUC.jpg' style='width: 25% ; border: 2px solid black'>
+        <img
+          src="assets/icon/DuocUC.jpg"
+          style="width: 25%; border: 2px solid black"
+        />
       </div>
 
       <ion-card-content>
         <ion-item #titulo>
           <ion-label position="floating">Usuario</ion-label>
 
-          <ion-input type="text" [(ngModel)]="usuario.nombreUsuario"></ion-input>
+          <ion-input
+            type="text"
+            [(ngModel)]="usuario.nombreUsuario"
+          ></ion-input>
         </ion-item>
         <ion-item #titulo2>
-          <ion-label position="floating" >Contraseña</ion-label>
+          <ion-label position="floating">Contraseña</ion-label>
 
-          <ion-input type="password" [(ngModel)]="usuario.password" #titulo></ion-input>
+          <ion-input
+            type="password"
+            [(ngModel)]="usuario.password"
+            #titulo
+          ></ion-input>
         </ion-item>
         <ion-row>
           <ion-col size="12">
-
             <ion-button shape="block" (click)="ingresar()">Ingresar</ion-button>
           </ion-col>
           <ion-col size="12">
-            <ion-button shape="block" (click)="limpiarFormulario()" id="limpiar1">
+            <ion-button
+              shape="block"
+              (click)="limpiarFormulario()"
+              id="limpiar1"
+            >
               Limpiar
             </ion-button>
-
           </ion-col>
         </ion-row>
       </ion-card-content>
 
       <ion-label>
-        <br>
+        <br />
         <a routerLink="/dvus">Si olvidaste tu contraseña, haz clicl aqui</a>
       </ion-label>
       <ion-label>
-        <br>
+        <br />
         <a routerLink="/formulario">Eres nuevo en DuocUC ?, haz clicl aqui</a>
       </ion-label>
     </ion-card>
   </div>
-
-
-
 </ion-content>
 <ion-footer>
   <ion-toolbar color="primary">
     <ion-title class="ion-text-left ion-text">
       Identificacion de usuario
     </ion-title>
-
   </ion-toolbar>
 </ion-footer>
