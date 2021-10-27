@@ -1,24 +1,14 @@
-/* eslint-disable arrow-body-style */
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-/* eslint-disable @typescript-eslint/quotes */
-/* eslint-disable @typescript-eslint/member-ordering */
-/* eslint-disable prefer-const */
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { AlertController } from '@ionic/angular';
-import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
-import { AnimationController } from '@ionic/angular';
-import { AfterViewInit } from '@angular/core';
-import { createAnimation } from '@ionic/angular';
-import { ApiDataService } from 'src/app/services/api-data.service';
-import { APIClientService } from 'src/app/services/apiclient.service';
+import { APIClientService } from './../../services/apiclient.service';
+import { Component, OnInit, ɵisDefaultChangeDetectionStrategy } from '@angular/core';
 import { ToastController } from '@ionic/angular';
+
 @Component({
-  selector: 'app-datos-basicos',
-  templateUrl: './datos-basicos.component.html',
-  styleUrls: ['./datos-basicos.component.scss'],
+  selector: 'app-registro',
+  templateUrl: './registro.page.html',
+  styleUrls: ['./registro.page.scss'],
 })
-export class DatosBasicosComponent implements OnInit, AfterViewInit {
+export class RegistroPage {
+
   // Esta propiedad se liga por ngModel con el "ion-select" que muestra los usuarios "Publicadores".
   selectedUserId: number;
 
@@ -33,9 +23,10 @@ export class DatosBasicosComponent implements OnInit, AfterViewInit {
   publicacion: any = {
     userId: null,
     id: null,
-    title: '',
-    body: '',
-    name: '',
+    us: '',
+    pass: '',
+    pass2: '',
+    ap2Materno: ''
   };
 
   // Esta propiedad se usa para mantener el listado de "Publicaciones recientes". El listado
@@ -53,13 +44,7 @@ export class DatosBasicosComponent implements OnInit, AfterViewInit {
 
   constructor(
     private api: APIClientService,
-    private toastController: ToastController
-  ) {}
-  ngAfterViewInit(): void {
-    throw new Error('Method not implemented.');
-  }
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
+    private toastController: ToastController) {
   }
 
   // El siguiente es uno de los eventos del ciclo de vida de las páginas en Ionic/Angular.
@@ -110,6 +95,7 @@ export class DatosBasicosComponent implements OnInit, AfterViewInit {
   // una publicación con el botón de lápiz en el listado de "Publicaciones recientes".
 
   setPublicacion(userId, pubId, title, body, name) {
+
     // Establecer los datos de la publicación
 
     this.publicacion.userId = userId;
@@ -121,8 +107,8 @@ export class DatosBasicosComponent implements OnInit, AfterViewInit {
     // mostrar los datos de control, que sirven para saber si se trata de una
     // nueva pubicación o de una ya existente que se está editando actualmente.
 
-    const uid = userId === null ? 'no seleccionado' : userId;
-    const pid = pubId === null ? 'nueva' : pubId;
+    const uid = userId === null? 'no seleccionado' : userId;
+    const pid = pubId === null? 'nueva' : pubId;
     this.publicacionSeleccionada = `(userId: ${uid} - pubId: ${pid})`;
   }
 
@@ -134,7 +120,7 @@ export class DatosBasicosComponent implements OnInit, AfterViewInit {
   // *ngFor="let u of usuarios" en cada uno de los "ion-select-option" de la lista.
 
   getUsuarios() {
-    this.api.getUsuarios().subscribe((data) => (this.usuarios = data));
+    this.api.getUsuarios().subscribe(data => this.usuarios = data);
   }
 
   // El siguiente método llena la lista de "Publicaciones recientes".
@@ -152,7 +138,9 @@ export class DatosBasicosComponent implements OnInit, AfterViewInit {
   // a más antiguo.
 
   getPublicaciones() {
+
     this.api.getPublicaciones().subscribe((publicaciones) => {
+
       // Las siguientes líneas son para llenar los nombres de los usuarios
       // que realizaron las publicaciones, puesto que en los registros de
       // las "Publicaciones recientes" sólo viene el "ID de Usuario", pero
@@ -162,10 +150,8 @@ export class DatosBasicosComponent implements OnInit, AfterViewInit {
 
       this.api.getUsuarios().subscribe((usuarios) => {
         // Recorrer las publicaciones para actualizar el nombre del usuario
-        publicaciones.forEach((publicacion) => {
-          publicacion.name = usuarios.find(
-            (u) => u.id === publicacion.userId
-          ).name;
+        publicaciones.forEach(publicacion => {
+          publicacion.name = usuarios.find(u => u.id === publicacion.userId).name;
         });
         // Invertir la lista de publicaciones para que muestre desde la más nueva a la más antigua
         publicaciones.reverse();
@@ -187,27 +173,26 @@ export class DatosBasicosComponent implements OnInit, AfterViewInit {
   // item seleccionado en la lista.
 
   guardarPublicacion() {
-    if (this.publicacion.userId === null) {
-      this.mostrarMensaje(
-        'Antes de hacer una publicación debe seleccionar un usuario.'
-      );
+    if (this.publicacion.us === '') {
+      this.mostrarMensaje('Antes de hacer una publicación debe seleccionar un usuario.');
       return;
     }
-    if (this.publicacion.title.trim() === '') {
-      this.mostrarMensaje(
-        'Antes de hacer una publicación debe llenar el título.'
-      );
+    if (this.publicacion.pass.trim() === '') {
+      this.mostrarMensaje('Antes de hacer una publicación debe llenar el título.');
       return;
     }
-    if (this.publicacion.body.trim() === '') {
-      this.mostrarMensaje(
-        'Antes de hacer una publicación debe llenar el cuerpo.'
-      );
+    if (this.publicacion.pass2.trim() === '') {
+      this.mostrarMensaje('Antes de hacer una publicación debe llenar el cuerpo.');
+      return;
+    }
+    if (this.publicacion.pass2.trim() === this.publicacion.pass.trim()) {
+      this.mostrarMensaje('Antes de hacer una publicación debe llenar el cuerpo.');
       return;
     }
     if (this.publicacion.id === null) {
       this.crearPublicacion();
-    } else {
+    }
+    else {
       this.actualizarPublicacion();
     }
   }
@@ -226,14 +211,11 @@ export class DatosBasicosComponent implements OnInit, AfterViewInit {
   crearPublicacion() {
     this.api.createPublicacion(this.publicacion).subscribe(
       (data) => {
-        this.mostrarMensaje(
-          `PUBLICACION CREADA CORRECTAMENTE: ${data.id} ${data.title}...`
-        );
+        this.mostrarMensaje(`PUBLICACION CREADA CORRECTAMENTE: ${data.id} ${data.title}...`);
         this.limpiarPublicacion();
         this.getPublicaciones();
       },
-      (error) =>
-        this.mostrarError('NO FUE POSIBLE CREAR LA PUBLICACION.', error)
+      (error) => this.mostrarError('NO FUE POSIBLE CREAR LA PUBLICACION.', error)
     );
   }
 
@@ -244,14 +226,11 @@ export class DatosBasicosComponent implements OnInit, AfterViewInit {
   actualizarPublicacion() {
     this.api.updatePublicacion(this.publicacion).subscribe(
       (data) => {
-        this.mostrarMensaje(
-          `PUBLICACION ACTUALIZADA CORRECTAMENTE: ${data.id} ${data.title}...`
-        );
+        this.mostrarMensaje(`PUBLICACION ACTUALIZADA CORRECTAMENTE: ${data.id} ${data.title}...`);
         this.limpiarPublicacion();
         this.getPublicaciones();
       },
-      (error) =>
-        this.mostrarError('NO FUE POSIBLE ACTUALIZAR LA PUBLICACION.', error)
+      (error) => this.mostrarError('NO FUE POSIBLE ACTUALIZAR LA PUBLICACION.', error)
     );
   }
 
@@ -272,12 +251,10 @@ export class DatosBasicosComponent implements OnInit, AfterViewInit {
   // "cambiarUsuario($event: number)" que recibe el Id del usuario seleccionado
   // por medio del parámetro $event.
 
-  editarPublicacion($event) {
+  editarPublicacion($event){
     const pub = $event;
     this.setPublicacion(pub.userId, pub.id, pub.title, pub.body, pub.name);
-    document
-      .getElementById('topOfPage')
-      .scrollIntoView({ block: 'end', behavior: 'smooth' });
+    document.getElementById('topOfPage').scrollIntoView({block: 'end', behavior: 'smooth'});
   }
 
   // Este método sirve para eliminar una publicación de la lista. Para poder identificar
@@ -286,7 +263,7 @@ export class DatosBasicosComponent implements OnInit, AfterViewInit {
   // (click)="editarPublicacion(p)" donde p es la publicación que se va mostrando una
   // por una gracias al comando *ngFor="let p of publicaciones;" usando en el tag "ion-item"
 
-  eliminarPublicacion($event) {
+  eliminarPublicacion($event){
     const pubId = $event.id;
     this.api.deletePublicacion(pubId).subscribe(
       (data) => {
@@ -294,8 +271,7 @@ export class DatosBasicosComponent implements OnInit, AfterViewInit {
         this.limpiarPublicacion();
         this.getPublicaciones();
       },
-      (error) =>
-        this.mostrarError('NO FUE POSIBLE ELIMINAR LA PUBLICACION.', error)
+      (error) => this.mostrarError('NO FUE POSIBLE ELIMINAR LA PUBLICACION.', error)
     );
   }
 
@@ -316,7 +292,7 @@ export class DatosBasicosComponent implements OnInit, AfterViewInit {
     const toast = await this.toastController.create({
       message: mensaje,
       duration: 3000,
-      color: 'success',
+      color: 'success'
     });
     toast.present();
   }
@@ -332,26 +308,15 @@ export class DatosBasicosComponent implements OnInit, AfterViewInit {
     const toast = await this.toastController.create({
       message: mensaje,
       duration: 3000,
-      color: 'danger',
+      color: 'danger'
     });
     toast.present();
     throw error;
   }
   public limpiarFormulario(): void {
-    /*
-    El método limpiar recorre cada uno de los campos de la propiedad persona,
-    de modo que la variable "key" va tomando el nombre de dichos campos (nombre,
-    apellido, etc.) y "value" adopta el valor que tiene en ese momento el
-    campo asociado a key.
-    */
     for (const [key, value] of Object.entries(this.publicacion)) {
-    /*
-      Con la siguiente instrucción se cambia el valor de cada campo
-      de la propiedad persona, y como los controles gráficos están
-      asociados a dichos nombres de campos a través de ngModel, entonces
-      al limpiar el valor del campo, también se limpia el control gráfico.
-    */
-      Object.defineProperty(this. publicacion, key, {value: ''});
+      Object.defineProperty(this.publicacion, key, { value: '' });
     }
-    }
+  }
+
 }

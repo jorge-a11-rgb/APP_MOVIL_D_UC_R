@@ -10,9 +10,9 @@ export class FormularioPage {
 
   public usuario: Usuario;
   constructor(private router: Router) {
-    this.router.navigate(['formulario/datos-basicos']);
+    this.router.navigate(['formulario/pregunta-clave']);
   }
-  segmentChanged($event){
+  segmentChanged($event): void{
     console.log($event.detail.value);
     // eslint-disable-next-line prefer-const
     let direction=$event.detail.value;

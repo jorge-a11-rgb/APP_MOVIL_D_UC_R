@@ -3,7 +3,7 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
-import { $ } from 'protractor';
+
 
 import { createAnimation } from '@ionic/angular';
 import { Animation, AnimationController } from '@ionic/angular';
