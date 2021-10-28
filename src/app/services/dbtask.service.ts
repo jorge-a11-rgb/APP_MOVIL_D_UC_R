@@ -19,8 +19,8 @@ export class DBTaskService {
    * en la variable db
    */
   setDatabase(db: SQLiteObject) {
-    alert('setDatabase');
     if (this.db === null) {
+      console.log('setDatabase BD fue asignada');
       this.db = db;
     }
   }
@@ -29,7 +29,7 @@ export class DBTaskService {
    */
   createTables(): Promise<any> {
     let tables = `
-    alert('createTables');
+    console.log('createTables');
     CREATE TABLE IF NOT EXISTS sesion_data
     (
       user_name TEXT PRIMARY KEY NOT NULL,
@@ -40,11 +40,12 @@ export class DBTaskService {
     `;
     return this.db.executeSql(tables);
   }
+
   /**
    * Retorna si existe un usuario activo o no.
    */
   sesionActive() {
-    alert('sesionActive');
+    console.log('sesionActive');
 
     // Se desarrolla la consulta
     let sql = `SELECT user_name,active FROM sesion_data WHERE active=1 LIMIT 1`;
@@ -63,7 +64,7 @@ export class DBTaskService {
    * @param sesion Datos de inicio de sesión Usuario y Password
    */
   getSesionData(sesion: any) {
-    alert('getSesionData');
+    console.log('getSesionData');
 
     let sql = `SELECT user_name, active FROM sesion_data
     WHERE user_name=? AND password=? LIMIT 1`;
@@ -77,7 +78,7 @@ export class DBTaskService {
    * @param sesion Datos de inicio de sesión Usuario, Password y Active
    */
   createSesionData(sesion: any) {
-    alert('createSesionData');
+    console.log('createSesionData');
 
     let sql = `INSERT INTO sesion_data(user_name,password,active)
     VALUES(?,?,?)`;
@@ -88,7 +89,7 @@ export class DBTaskService {
       });
   }
   updateSesionData(sesion: any) {
-    alert('updateSesionData');
+    console.log('updateSesionData');
 
     let sql = `UPDATE sesion_data
     SET active=?
