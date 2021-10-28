@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/semi */
+/* eslint-disable @typescript-eslint/naming-convention */
 
 import { Component, OnInit } from '@angular/core';
 
@@ -10,10 +12,22 @@ import { AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { $ } from 'protractor';
-import { Usuario } from 'src/app/model/Usuario';
 
 import { createAnimation } from '@ionic/angular';
-import { Animation, AnimationController } from '@ionic/angular';
+import { Animation } from '@ionic/angular';
+/* eslint-disable @typescript-eslint/type-annotation-spacing */
+/* eslint-disable @typescript-eslint/member-ordering */
+/* eslint-disable prefer-arrow/prefer-arrow-functions */
+/* eslint-disable @typescript-eslint/no-shadow */
+/* eslint-disable @typescript-eslint/semi */
+/* eslint-disable @typescript-eslint/naming-convention */
+
+import { AnimationController } from '@ionic/angular';
+import { toastController } from '@ionic/core';
+import { pass } from 'src/app/model/pass';
+import { Session } from 'selenium-webdriver';
+import { Usuario } from 'src/app/model/Usuario';
+import { DBTaskService } from 'src/app/services/dbtask.service';
 
 @Component({
   selector: 'app-pass',
@@ -21,86 +35,81 @@ import { Animation, AnimationController } from '@ionic/angular';
   styleUrls: ['./pass.page.scss'],
 })
 export class PassPage implements OnInit, AfterViewInit {
-  @ViewChild('titulo3', { read: ElementRef, static: true}) titulo3: ElementRef;
-  @ViewChild('ti4', { read: ElementRef, static: true}) ti4: ElementRef;
+  @ViewChild('titulo3', { read: ElementRef, static: true }) titulo3: ElementRef;
+  @ViewChild('ti4', { read: ElementRef, static: true }) ti4: ElementRef;
 
+  sesion = {
+    user_name: '',
+    password: '',
+    password2: '',
+    segundo_apellido_materno:''
+  };
 
-  public usuario: Usuario_pass;
+  constructor(
+    private router: Router,
+    private toastController: ToastController,
+    private activeroute: ActivatedRoute,
+    private alertController: AlertController,
+    private animationController: AnimationController
+  ) {}
 
-  constructor(private router: Router, private toastController: ToastController, private activeroute: ActivatedRoute
-    , private alertController: AlertController
-    , private animationController: AnimationController) {
-    this.usuario = new Usuario_pass();
-    this.usuario.nombreUsuario = '';
-
-  }
   public ngAfterViewInit(): void {
     // eslint-disable-next-line prefer-const
-    let animation = this.animationController.create()
+    let animation = this.animationController
+      .create()
       .addElement(this.titulo3.nativeElement)
       .addElement(this.ti4.nativeElement)
       .duration(1500)
 
-      .fromTo('opacity', 0.10, 1);
+      .fromTo('opacity', 0.1, 1);
 
-      document.querySelector('#limpiar2').addEventListener('click', () => {
-        animation.play();
-      });
+    document.querySelector('#limpiar2').addEventListener('click', () => {
+      animation.play();
+    });
   }
 
-  public ngOnInit(): void {
+  public ngOnInit(): void {}
 
-  }
-
-  public ingresar(): void {
-
-    if(!this.validarUsuario(this.usuario)) {
-      return;
+  public Restableser(): void {
+    if (this.sesion.user_name.trim() === '') {
+      this.mostrarMensaje('Debe ingresar su usuario');
     }
-
-    this.mostrarMensaje('Usted a sido idenficado con exito');
-
-
-    const navigationExtras: NavigationExtras = {
-      state: {
-        usuario: this.usuario
-      }
-    };
-    this.router.navigate(['/pass2'], navigationExtras);
-  }
-
-
-  // eslint-disable-next-line @typescript-eslint/naming-convention
-  public validarUsuario(usuario_pass: Usuario_pass): boolean {
-
-    const mensajeError = usuario_pass.validarUsuario();
-
-    if (mensajeError) {
-      this.mostrarMensaje(mensajeError);
-      return false;
+    if (this.sesion.password !== this.sesion.password2) {
+      this.mostrarMensaje('Debe escribir las claves de manera igual');
     }
+    if(this.sesion.segundo_apellido_materno.trim()===''){
+      this.mostrarMensaje('Debe ingresar el segundo apellido de su madre');
 
-    return true;
+    }
+    if (this.sesion.password === '') {
+      this.mostrarMensaje('Debe ingresar una clave');
+    }
+    if (this.sesion.password2 === '') {
+      this.mostrarMensaje('Debe repetir la clave');
+    } else {
+      updateSesionData(this.sesion);
+      this.mostrarMensaje('Clave actualizada');
+    }
+  }
+  public limpiarFormulario(): void {
+    for (const [key, value] of Object.entries(this.sesion)) {
+      Object.defineProperty(this.sesion, key, { value: '' });
+    }
   }
 
-  /**
-   * Muestra un toast al usuario
-   *
-   * @param mensaje Mensaje a presentar al usuario
-   * @param duracion Duración el toast, este es opcional
-   */
   async mostrarMensaje(mensaje: string, duracion?: number) {
     const toast = await this.toastController.create({
-        message: mensaje,
-        duration: duracion? duracion: 2000
-      });
+      message: mensaje,
+      duration: duracion ? duracion : 2000,
+    });
     toast.present();
   }
-  public limpiarFormulario(): void{
-    for (const [key, value] of Object.entries(this.usuario)) {
-      Object.defineProperty(this.usuario, key, {value: ''});
-  }
-
 }
 
+function updateSesionData(sesion: {
+  user_name: string;
+  password: string;
+  password2: string;
+}) {
+  throw new Error('Function not implemented.');
 }
