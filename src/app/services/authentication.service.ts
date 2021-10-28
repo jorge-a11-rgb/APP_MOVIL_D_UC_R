@@ -27,22 +27,37 @@ export class AuthenticationService {
    * Valida si existe un usuario iniciado
    */
   isLogged(){
-    alert('isLogged');
-    this.storage.get("USER_DATA").
-    then((response)=>{
-      console.log(response)
-      if(response!==null){
-        this.authState.next(true); //Se establece en verdadero el estado de la authentication
-      }
-    })
+    try {
+      this.storage.get("USER_DATA").
+        then(
+          (response) => {
+            console.log('isLogged response');
+            console.log(response);
+            if(response!==null){
+              console.log('Logro obtener USER_DATA pero venia en nulo.');
+              this.authState.next(true); //Se establece en verdadero el estado de la authentication
+            } else {
+              console.log('Logro obtener USER_DATA y venia con datos.');
+            }
+            return true;
+          },
+          (resp) => {
+            console.log('No logro obtener USER_DATA.');
+          }
+      )
+    }
+    catch(error) {
+      console.log('Error en isLogged(), cayo en el catch.');
+      console.log(error);
+      return false;
+    }
   }
+
   /**
    * Función que permite cerrar la sesión actual
    * actualiza el sesion_data de SQLite
    */
   logout(){
-    alert('logout');
-
     // Se obtiene la informacion almacenada en storage mediante la clave "USER_DATA"
     this.storage.get("USER_DATA").then((data)=>{
       // Como quiere cerrar la sesión se cambia active a 0
@@ -64,8 +79,6 @@ export class AuthenticationService {
     });
   }
   login(login: any){
-    alert('login');
-
     // Se obtiene si existe alguna data de sesión
     this.dbtaskService.getSesionData(login)
     .then((data)=>{ // Si se ejecuto correctamente la consulta
