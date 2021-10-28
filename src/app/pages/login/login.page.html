@@ -33,7 +33,7 @@
 
           <ion-input
             type="text"
-            [(ngModel)]="usuario.nombreUsuario"
+            [(ngModel)]="usuario.User_name"
           ></ion-input>
         </ion-item>
         <ion-item #titulo2>
@@ -41,7 +41,7 @@
 
           <ion-input
             type="password"
-            [(ngModel)]="usuario.password"
+            [(ngModel)]="usuario.Password"
             #titulo
           ></ion-input>
         </ion-item>
@@ -66,17 +66,8 @@
         <a routerLink="/pass">Si olvidaste tu contraseña, haz clicl aqui</a>
       </ion-label>
       <ion-label>
-<<<<<<< Updated upstream
         <br />
         <a routerLink="/formulario">Eres nuevo en DuocUC ?, haz clicl aqui</a>
-=======
-        <br>
-        <a routerLink="/registro">Eres nuevo en DuocUC ?, haz clicl aqui</a>
-      </ion-label>
-      <ion-label>
-        <br>
-        <a routerLink="/formulario">Informacion Duoc UC, haz clicl aqui</a>
->>>>>>> Stashed changes
       </ion-label>
     </ion-card>
   </div>

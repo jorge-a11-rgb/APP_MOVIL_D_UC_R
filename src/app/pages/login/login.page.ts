@@ -38,8 +38,8 @@ export class LoginPage implements OnInit, AfterViewInit {
     private authenticationSerive: AuthenticationService
   ) {
     this.usuario = new Usuario();
-    this.usuario.nombreUsuario = '';
-    this.usuario.password = '';
+    this.usuario.User_name = '';
+    this.usuario.Password = '';
   }
   public ngAfterViewInit(): void {
     // eslint-disable-next-line prefer-const
@@ -67,7 +67,7 @@ export class LoginPage implements OnInit, AfterViewInit {
 
     const navigationExtras: NavigationExtras = {
       state: {
-        usuario: this.usuario.nombreUsuario,
+        usuario: this.usuario.User_name,
       },
     };
     this.router.navigate(['/home'], navigationExtras);

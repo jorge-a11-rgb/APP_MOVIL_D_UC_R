@@ -20,10 +20,7 @@ const routes: Routes = [
     path: 'pass',
     loadChildren: () => import('./pages/pass/pass.module').then( m => m.PassPageModule)
   },
-  {
-    path: 'pass2',
-    loadChildren: () => import('./pages/pass2/pass2.module').then( m => m.Pass2PageModule)
-  },
+
   {
     path: 'camara',
     loadChildren: () => import('./pages/camara/camara.module').then( m => m.CamaraPageModule)
@@ -32,10 +29,7 @@ const routes: Routes = [
     path: 'formulario',
     loadChildren: () => import('./pages/formulario/formulario.module').then( m => m.FormularioPageModule)
   },
-  {
-    path: 'dvus',
-    loadChildren: () => import('./pages/dvus/dvus.module').then( m => m.DvusPageModule)
-  },
+
   {
     path: 'registro',
     loadChildren: () => import('./pages/registro/registro.module').then( m => m.RegistroPageModule)
