@@ -79,8 +79,8 @@ export class DBTaskService {
   }
   updateSesionData(sesion: any){
     let sql = `UPDATE sesion_data
-    SET active=?
-    WHERE user_name=?`;
+    SET password=?, password2=?
+    WHERE user_name=? and segundo_apellido_materno=?`;
     return this.db.executeSql(sql, [sesion.active,sesion.user_name]);
   }
 
