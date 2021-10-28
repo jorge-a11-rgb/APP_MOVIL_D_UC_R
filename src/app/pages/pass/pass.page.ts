@@ -37,6 +37,9 @@ import { DBTaskService } from 'src/app/services/dbtask.service';
 export class PassPage implements OnInit, AfterViewInit {
   @ViewChild('titulo3', { read: ElementRef, static: true }) titulo3: ElementRef;
   @ViewChild('ti4', { read: ElementRef, static: true }) ti4: ElementRef;
+  @ViewChild('ti5', { read: ElementRef, static: true }) ti5: ElementRef;
+  @ViewChild('ti6', { read: ElementRef, static: true }) ti6: ElementRef;
+  @ViewChild('ti7', { read: ElementRef, static: true }) ti7: ElementRef;
 
   sesion = {
     user_name: '',
@@ -59,9 +62,12 @@ export class PassPage implements OnInit, AfterViewInit {
       .create()
       .addElement(this.titulo3.nativeElement)
       .addElement(this.ti4.nativeElement)
-      .duration(1500)
+      .addElement(this.ti5.nativeElement)
+      .addElement(this.ti6.nativeElement)
+      .addElement(this.ti7.nativeElement)
+      .duration(4000)
 
-      .fromTo('opacity', 0.1, 1);
+      .fromTo('opacity', 0.1, 5);
 
     document.querySelector('#limpiar2').addEventListener('click', () => {
       animation.play();

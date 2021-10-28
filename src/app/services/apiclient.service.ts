@@ -15,7 +15,7 @@ export class APIClientService {
     })
   };
 
-  apiUrl = 'https://jsonplaceholder.typicode.com';
+  apiUrl = 'https://medium.com/@estebanbacl/api-rest-obtener-datos-del-backend-60bdd1b3d6e9';
 
   constructor(private http: HttpClient) {
   }

@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar #titulo3 color="primary">
+  <ion-toolbar color="primary">
     <ion-title>Datos alumno</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -13,7 +13,7 @@
   </ion-title>
   <b class="ion-text-center">
     <h4>Llene el formulario</h4>
-    <div class="ion-padding-top ion-text-center">
+    <div class="ion-padding-top ion-text-center" #i>
       <img src='assets/icon/Pers.jpeg' style='width: 35% ; border: 2px solid black'>
       </div>
 
@@ -53,9 +53,9 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
-
-
-
+  <div class="ion-padding-top ion-text-center">
+    <ion-button [routerLink]="['/formulario']">Ir a informacion de DUOC</ion-button>
+  </div>
 </ion-content>
+
 <!-- Termina el Content -->

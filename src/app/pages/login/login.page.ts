@@ -49,7 +49,6 @@ export class LoginPage implements OnInit, AfterViewInit {
       .addElement(this.titulo2.nativeElement)
 
       .duration(1500)
-      .fromTo('transform', 'translate(0px)', 'translate(100px)')
       .fromTo('opacity', 0.1, 1);
 
     document.querySelector('#limpiar1').addEventListener('click', () => {

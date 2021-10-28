@@ -13,12 +13,28 @@ import { createAnimation } from '@ionic/angular';
 import { ApiDataService } from 'src/app/services/api-data.service';
 import { APIClientService } from 'src/app/services/apiclient.service';
 import { ToastController } from '@ionic/angular';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { DBTaskService } from 'src/app/services/dbtask.service';
+/* eslint-disable prefer-const */
+
+import { Animation } from '@ionic/angular';
 @Component({
   selector: 'app-datos-basicos',
   templateUrl: './datos-basicos.component.html',
   styleUrls: ['./datos-basicos.component.scss'],
 })
 export class DatosBasicosComponent implements OnInit, AfterViewInit {
+  @ViewChild('t', { read: ElementRef, static: true }) t: ElementRef;
+
+public ngAfterViewInit(): void {
+let animation = this.animationController.create()
+  .addElement(this.t.nativeElement)
+  .duration(4000)
+  .iterations(Infinity)
+  .fromTo('opacity', 1, 0.2);
+
+animation.play();
+}
   // Esta propiedad se liga por ngModel con el "ion-select" que muestra los usuarios "Publicadores".
   selectedUserId: number;
 
@@ -53,11 +69,13 @@ export class DatosBasicosComponent implements OnInit, AfterViewInit {
 
   constructor(
     private api: APIClientService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private animationController: AnimationController
+    ,private router: Router
+    ,private activateroute: ActivatedRoute
+    ,private alterControler: AlertController
   ) {}
-  ngAfterViewInit(): void {
-    throw new Error('Method not implemented.');
-  }
+
   ngOnInit(): void {
     throw new Error('Method not implemented.');
   }

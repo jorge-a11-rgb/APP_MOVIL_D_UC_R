@@ -8,16 +8,8 @@
 import { Component, OnInit, ɵisDefaultChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlertController, AnimationController, ToastController } from '@ionic/angular';
-import { toastController } from '@ionic/core';
-import { pass } from 'src/app/model/pass';
-import { Session } from 'selenium-webdriver';
-import { Usuario } from 'src/app/model/Usuario';
 import { DBTaskService } from 'src/app/services/dbtask.service';
 
-
-import { NavigationExtras } from '@angular/router';
-
-import { Usuario_pass2 } from 'src/app/model/Ususario_pass2';
 import { AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 
 
@@ -28,7 +20,9 @@ import { AfterViewInit, ElementRef, ViewChild } from '@angular/core';
   templateUrl: './registro.page.html',
   styleUrls: ['./registro.page.scss'],
 })
-export class RegistroPage {
+export class RegistroPage implements OnInit, AfterViewInit {
+  @ViewChild('i', { read: ElementRef, static: true }) i: ElementRef;
+
 sesion={
   user_name:'',
   password: '',
@@ -45,7 +39,18 @@ constructor(private router: Router, private activeroute: ActivatedRoute
   , private alertController: AlertController
   , private animationController: AnimationController
   , private DBTaskService: DBTaskService){}
-
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
+  public ngAfterViewInit(): void {
+    // eslint-disable-next-line prefer-const
+    let animation = this.animationController.create()
+      .addElement(this.i.nativeElement)
+      .iterations(Infinity)
+      .duration(1500)
+      .fromTo('opacity', 0.1, 5);
+       animation.play();
+  }
 
   registrar(){
     if(this.sesion.password!==this.sesion.password2){

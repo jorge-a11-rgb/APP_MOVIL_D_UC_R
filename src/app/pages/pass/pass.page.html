@@ -8,7 +8,7 @@
 
   <ion-title class="ion-padding-top ion-text-center">
     <ion-label>
-      <h1>Para identificarlo...</h1>
+      <h1>LLene los campos</h1>
 
     </ion-label>
   </ion-title>
@@ -19,7 +19,8 @@
 
       <ion-card-title class="ion-text-center">
         <ion-label>
-          <h2>Ingrese la información aquí</h2>
+          <h2>Si su usuario y clave son correctos</h2>
+          <h2>su clave se actualizara</h2>
         </ion-label>
       </ion-card-title>
 
@@ -31,17 +32,17 @@
         </ion-item>
 
         <ion-item >
-          <ion-label position="floating" #titulo3 >Ingrese el segundo</ion-label>
+          <ion-label position="floating" #ti5 >Ingrese el segundo</ion-label>
           <ion-label position="floating" #ti4 >apellido de su madre</ion-label>
 
           <ion-input type="text" [(ngModel)]="sesion.segundo_apellido_materno"></ion-input>
         </ion-item>
         <ion-item >
-          <ion-label position="floating" #titulo3 >Ingrese su nueva clave</ion-label>
+          <ion-label position="floating" #ti6 >Ingrese su nueva clave</ion-label>
           <ion-input type="password" [(ngModel)]="sesion.user_name"></ion-input>
         </ion-item>
         <ion-item >
-          <ion-label position="floating" #titulo3 >repita su nueva clave</ion-label>
+          <ion-label position="floating" #ti7 >repita su nueva clave</ion-label>
           <ion-input type="password" [(ngModel)]="sesion.user_name"></ion-input>
         </ion-item>
 
