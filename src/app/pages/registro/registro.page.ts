@@ -63,8 +63,9 @@ constructor(private router: Router, private activeroute: ActivatedRoute
     }
     if(this.sesion.segundo_apellido_materno.trim()===''){
       this.mostrarMensaje('Debe ingresar el segundo apellido de su madre');
+    }else{
+      createSesionData(this.sesion);
     }
-    createSesionData(this.sesion);
   }
   public limpiarFormulario(): void {
     for (const [key, value] of Object.entries(this.sesion)) {
